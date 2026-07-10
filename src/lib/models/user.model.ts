@@ -1,5 +1,27 @@
 import mongoose from 'mongoose';
 
+const favItemSchema = new mongoose.Schema({
+  movieId: { type: String, required: true },
+  title: { type: String, required: true },
+  image: { type: String, default: '' },
+  description: { type: String, default: '' },
+  dateReleased: { type: String, default: '' },
+  rating: { type: String, default: '' },
+  list: {
+    type: String,
+    enum: ['favorite', 'watchlist', 'watched'],
+    default: 'favorite',
+  },
+});
+
+const recentlyViewedSchema = new mongoose.Schema({
+  movieId: { type: String, required: true },
+  title: { type: String, required: true },
+  image: { type: String, default: '' },
+  year: { type: String, default: '' },
+  viewedAt: { type: Date, default: Date.now },
+});
+
 const userSchema = new mongoose.Schema(
   {
     clerkId: {
@@ -26,6 +48,14 @@ const userSchema = new mongoose.Schema(
     avatar: {
       type: String,
       required: true,
+    },
+    favs: {
+      type: [favItemSchema],
+      default: [],
+    },
+    recentlyViewed: {
+      type: [recentlyViewedSchema],
+      default: [],
     },
   },
   { timestamps: true }

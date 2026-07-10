@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SignedIn, SignedOut, SignUpButton } from "@clerk/nextjs";
+import HomeMovieGrid from "@/components/HomeMovieGrid";
 
 const features = [
   {
@@ -175,6 +176,11 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Trending */}
+      <section className="relative border-t border-white/5 bg-black/40 py-16">
+        <HomeMovieGrid />
       </section>
 
       {/* Features */}

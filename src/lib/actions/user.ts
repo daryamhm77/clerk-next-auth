@@ -7,14 +7,23 @@ type ClerkEmailAddress = {
   email_address: string;
 };
 
-export const createOrUpdateUser = async (
-  id: string,
-  first_name: string | null,
-  last_name: string | null,
-  image_url: string,
-  email_addresses: ClerkEmailAddress[],
-  username: string | null
-) => {
+export type ClerkUserData = {
+  id: string;
+  first_name: string | null;
+  last_name: string | null;
+  image_url: string;
+  email_addresses: ClerkEmailAddress[];
+  username: string | null;
+};
+
+export const createOrUpdateUser = async ({
+  id,
+  first_name,
+  last_name,
+  image_url,
+  email_addresses,
+  username,
+}: ClerkUserData) => {
   try {
     await dbConnect();
 
@@ -23,7 +32,7 @@ export const createOrUpdateUser = async (
       throw new Error("User has no email address");
     }
 
-    const user = await User.findOneAndUpdate(
+    return await User.findOneAndUpdate(
       { clerkId: id },
       {
         $set: {
@@ -36,8 +45,6 @@ export const createOrUpdateUser = async (
       },
       { new: true, upsert: true }
     );
-
-    return user;
   } catch (error) {
     console.error("Error creating or updating user:", error);
     throw error;

@@ -4,6 +4,10 @@ import "./globals.css";
 
 import { ClerkProvider } from "@clerk/nextjs";
 import Header from "@/components/Header";
+import Navbar from "@/components/Navbar";
+import SearchBox from "@/components/SearchBox";
+import ThemeProvider from "@/components/ThemeProvider";
+import ToastProvider from "@/components/Toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,12 +31,18 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <Header />
-          <main>{children}</main>
+          <ThemeProvider>
+            <ToastProvider>
+              <Header />
+              <Navbar />
+              <SearchBox />
+              <main>{children}</main>
+            </ToastProvider>
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
