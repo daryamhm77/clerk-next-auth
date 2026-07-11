@@ -44,7 +44,7 @@ export default function ToastProvider({ children }: { children: ReactNode }) {
         {toasts.map((toast) => (
           <div
             key={toast.id}
-            className="flex items-center gap-3 rounded-xl bg-neutral-800 px-5 py-3 text-sm text-white shadow-lg ring-1 ring-neutral-700"
+            className="flex items-center gap-3 rounded-xl bg-card px-5 py-3 text-sm text-foreground shadow-lg ring-1 ring-card-border"
           >
             <MdCheckCircle size={20} className="text-green-400" />
             {toast.message}
@@ -53,7 +53,7 @@ export default function ToastProvider({ children }: { children: ReactNode }) {
                 setToasts((prev) => prev.filter((t) => t.id !== toast.id))
               }
             >
-              <MdClose size={16} className="text-gray-500 hover:text-white" />
+              <MdClose size={16} className="text-muted hover:text-foreground" />
             </button>
           </div>
         ))}

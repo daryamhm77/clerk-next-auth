@@ -36,7 +36,7 @@ export default function Pagination({
         className={`flex items-center gap-1 rounded-lg px-4 py-2 text-sm font-semibold transition ${
           prevDisabled
             ? 'cursor-not-allowed text-neutral-600'
-            : 'border border-neutral-700 text-gray-300 hover:border-amber-500 hover:text-amber-500'
+            : 'border border-card-border text-foreground hover:border-amber-500 hover:text-amber-500'
         }`}
         aria-disabled={prevDisabled}
         onClick={(e) => prevDisabled && e.preventDefault()}
@@ -45,7 +45,7 @@ export default function Pagination({
         Previous
       </Link>
 
-      <span className="text-sm text-gray-500">
+      <span className="text-sm text-muted">
         Page {currentPage} of {totalPages}
       </span>
 
@@ -54,7 +54,7 @@ export default function Pagination({
         className={`flex items-center gap-1 rounded-lg px-4 py-2 text-sm font-semibold transition ${
           nextDisabled
             ? 'cursor-not-allowed text-neutral-600'
-            : 'border border-neutral-700 text-gray-300 hover:border-amber-500 hover:text-amber-500'
+            : 'border border-card-border text-foreground hover:border-amber-500 hover:text-amber-500'
         }`}
         aria-disabled={nextDisabled}
         onClick={(e) => nextDisabled && e.preventDefault()}

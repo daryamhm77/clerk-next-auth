@@ -4,8 +4,6 @@ import "./globals.css";
 
 import { ClerkProvider } from "@clerk/nextjs";
 import Header from "@/components/Header";
-import Navbar from "@/components/Navbar";
-import SearchBox from "@/components/SearchBox";
 import ThemeProvider from "@/components/ThemeProvider";
 import ToastProvider from "@/components/Toast";
 
@@ -38,8 +36,6 @@ export default function RootLayout({
           <ThemeProvider>
             <ToastProvider>
               <Header />
-              <Navbar />
-              <SearchBox />
               <main>{children}</main>
             </ToastProvider>
           </ThemeProvider>

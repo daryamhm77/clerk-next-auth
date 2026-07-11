@@ -1,6 +1,8 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import { SignedIn, SignedOut, SignUpButton } from "@clerk/nextjs";
 import HomeMovieGrid from "@/components/HomeMovieGrid";
+import Loader from "@/components/Loader";
 
 const features = [
   {
@@ -70,7 +72,7 @@ export default function Home() {
               </span>
             </h1>
 
-            <p className="mt-6 max-w-lg text-lg leading-relaxed text-gray-400">
+            <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted">
               IMDb Tracker is your personal movie companion — log watches, rate
               favorites, and uncover insights about your viewing habits. Like a
               letterboxd for power users, built with modern tech.
@@ -86,7 +88,7 @@ export default function Home() {
                 </SignUpButton>
                 <Link
                   href="/about"
-                  className="rounded-2xl border border-white/10 px-8 py-4 text-base font-semibold text-gray-300 transition hover:border-red-500/40 hover:text-white"
+                  className="rounded-2xl border border-white/10 px-8 py-4 text-base font-semibold text-foreground transition hover:border-red-500/40 hover:text-foreground"
                 >
                   Learn More
                 </Link>
@@ -101,7 +103,7 @@ export default function Home() {
               </SignedIn>
             </div>
 
-            <div className="mt-12 flex items-center gap-8 text-sm text-gray-500">
+            <div className="mt-12 flex items-center gap-8 text-sm text-muted">
               <div>
                 <p className="text-2xl font-bold text-white">10k+</p>
                 <p>Films tracked</p>
@@ -124,7 +126,7 @@ export default function Home() {
             <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-red-600/20 to-transparent blur-2xl" />
             <div className="relative rounded-3xl border border-white/10 bg-gradient-to-br from-zinc-900 to-black p-6 shadow-2xl">
               <div className="mb-4 flex items-center justify-between">
-                <p className="text-sm font-semibold text-gray-400">
+                <p className="text-sm font-semibold text-muted">
                   Your Watchlist
                 </p>
                 <span className="rounded-full bg-red-600/20 px-3 py-1 text-xs font-medium text-red-400">
@@ -144,7 +146,7 @@ export default function Home() {
                     </div>
                     <div className="min-w-0 flex-1">
                       <p className="truncate font-semibold">{film.title}</p>
-                      <p className="text-xs text-gray-500">
+                        <p className="text-xs text-muted">
                         {film.year} · {film.genre}
                       </p>
                     </div>
@@ -169,7 +171,7 @@ export default function Home() {
                     <p className="text-lg font-bold text-red-400">
                       {stat.value}
                     </p>
-                    <p className="text-xs text-gray-500">{stat.label}</p>
+                      <p className="text-xs text-muted">{stat.label}</p>
                   </div>
                 ))}
               </div>
@@ -180,7 +182,15 @@ export default function Home() {
 
       {/* Trending */}
       <section className="relative border-t border-white/5 bg-black/40 py-16">
-        <HomeMovieGrid />
+        <Suspense
+          fallback={
+            <div className="mx-auto max-w-7xl px-6">
+              <Loader message="Loading trending..." />
+            </div>
+          }
+        >
+          <HomeMovieGrid />
+        </Suspense>
       </section>
 
       {/* Features */}
@@ -191,7 +201,7 @@ export default function Home() {
               Built for{" "}
               <span className="text-red-500">movie lovers</span>
             </h2>
-            <p className="mx-auto mt-4 max-w-xl text-gray-400">
+            <p className="mx-auto mt-4 max-w-xl text-muted">
               Everything you need to turn casual watching into a curated
               collection you&apos;re proud of.
             </p>
@@ -207,7 +217,7 @@ export default function Home() {
                   {feature.icon}
                 </div>
                 <h3 className="mb-2 text-lg font-bold">{feature.title}</h3>
-                <p className="text-sm leading-relaxed text-gray-400">
+                <p className="text-sm leading-relaxed text-muted">
                   {feature.description}
                 </p>
               </div>
@@ -247,7 +257,7 @@ export default function Home() {
                   {item.step}
                 </div>
                 <h3 className="mb-2 text-xl font-bold">{item.title}</h3>
-                <p className="text-gray-400">{item.desc}</p>
+                <p className="text-muted">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -261,7 +271,7 @@ export default function Home() {
             <h2 className="text-3xl font-black md:text-4xl">
               Ready to roll the credits on forgetfulness?
             </h2>
-            <p className="mx-auto mt-4 max-w-md text-gray-400">
+            <p className="mx-auto mt-4 max-w-md text-muted">
               Join thousands of film fans who never lose track of a great
               movie again.
             </p>

@@ -61,7 +61,7 @@ export default function DashboardContent() {
   if (!isSignedIn) {
     return (
       <div className="pt-10 text-center">
-        <h1 className="text-xl text-gray-400">
+        <h1 className="text-xl text-muted">
           Please sign in to view your dashboard
         </h1>
       </div>
@@ -87,11 +87,11 @@ export default function DashboardContent() {
           {statCards.map((card) => (
             <div
               key={card.label}
-              className="rounded-xl border border-neutral-800 bg-neutral-900 p-5"
+              className="rounded-xl border border-card-border bg-card p-5"
             >
               <div className={`mb-2 ${card.color}`}>{card.icon}</div>
               <p className="text-3xl font-black text-white">{card.value}</p>
-              <p className="mt-1 text-sm text-gray-400">{card.label}</p>
+              <p className="mt-1 text-sm text-muted">{card.label}</p>
             </div>
           ))}
         </div>
@@ -100,7 +100,7 @@ export default function DashboardContent() {
       {recentlyViewed.length > 0 && (
         <section>
           <div className="mb-4 flex items-center gap-2">
-            <MdHistory size={20} className="text-gray-400" />
+            <MdHistory size={20} className="text-muted" />
             <h2 className="text-xl font-bold text-white">Recently Viewed</h2>
           </div>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
@@ -110,7 +110,7 @@ export default function DashboardContent() {
                 href={`/movie/${item.movieId}`}
                 className="group"
               >
-                <div className="relative aspect-[2/3] overflow-hidden rounded-lg border border-neutral-800">
+                <div className="relative aspect-[2/3] overflow-hidden rounded-lg border border-card-border">
                   <Image
                     src={item.image || 'https://placehold.co/300x450/171717/ffffff?text=N/A'}
                     alt={item.title}
@@ -119,11 +119,11 @@ export default function DashboardContent() {
                     className="object-cover transition duration-300 group-hover:scale-105"
                   />
                 </div>
-                <p className="mt-2 truncate text-sm font-medium text-gray-300 group-hover:text-white">
+                <p className="mt-2 truncate text-sm font-medium text-foreground group-hover:text-foreground">
                   {item.title}
                 </p>
                 {item.year && (
-                  <p className="text-xs text-gray-500">{item.year}</p>
+                  <p className="text-xs text-muted">{item.year}</p>
                 )}
               </Link>
             ))}
@@ -142,9 +142,9 @@ export default function DashboardContent() {
               <Link
                 key={item.movieId}
                 href={`/movie/${item.movieId}`}
-                className="flex items-center gap-4 rounded-xl border border-neutral-800 bg-neutral-900 p-4 transition hover:border-amber-500"
+                className="flex items-center gap-4 rounded-xl border border-card-border bg-card p-4 transition hover:border-amber-500"
               >
-                <span className="w-6 text-center text-lg font-bold text-gray-500">
+                <span className="w-6 text-center text-lg font-bold text-muted">
                   {i + 1}
                 </span>
                 <div className="relative h-16 w-12 shrink-0 overflow-hidden rounded-md">

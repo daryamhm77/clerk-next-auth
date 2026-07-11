@@ -31,7 +31,7 @@ export default function SearchBox() {
         placeholder="Search movies..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="h-12 flex-1 rounded-lg border border-neutral-700 bg-neutral-900 px-4 text-white outline-none transition focus:border-amber-500"
+        className="h-12 flex-1 rounded-lg border border-card-border bg-input px-4 text-foreground outline-none transition focus:border-amber-500"
       />
 
       <button

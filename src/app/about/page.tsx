@@ -55,7 +55,7 @@ export default function AboutPage() {
             film archive
           </span>
         </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-gray-400">
+        <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted">
           IMDb Tracker helps movie lovers log what they watch, rate their
           favorites, and understand their viewing habits through beautiful
           analytics. Think of it as a digital scrapbook for your cinematic life
@@ -68,13 +68,13 @@ export default function AboutPage() {
         <div className="mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-2">
           <div>
             <h2 className="text-3xl font-black md:text-4xl">Our Mission</h2>
-            <p className="mt-6 leading-relaxed text-gray-400">
+            <p className="mt-6 leading-relaxed text-muted">
               Streaming has made more films accessible than ever, but it&apos;s
               also easier to forget what you&apos;ve seen. IMDb Tracker exists
               to solve that — giving every viewer a persistent, searchable
               record of their film journey.
             </p>
-            <p className="mt-4 leading-relaxed text-gray-400">
+            <p className="mt-4 leading-relaxed text-muted">
               Whether you&apos;re a casual weekend watcher or a dedicated
               cinephile chasing a 100-film year, our tools adapt to how{" "}
               <em>you</em> watch. Log films in seconds, revisit your ratings,
@@ -84,12 +84,12 @@ export default function AboutPage() {
 
           <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-zinc-900 to-black p-8">
             <div className="mb-6 text-6xl">🎬</div>
-            <blockquote className="text-xl font-medium leading-relaxed text-gray-200">
+            <blockquote className="text-xl font-medium leading-relaxed text-foreground">
               &ldquo;The best movie tracker is the one you actually use. We
               designed every screen to be fast, dark, and distraction-free —
               like a theater before the lights dim.&rdquo;
             </blockquote>
-            <p className="mt-6 text-sm text-gray-500">
+            <p className="mt-6 text-sm text-muted">
               — The IMDb Tracker Team
             </p>
           </div>
@@ -110,7 +110,7 @@ export default function AboutPage() {
               >
                 <div className="mb-4 text-4xl">{value.icon}</div>
                 <h3 className="mb-3 text-xl font-bold">{value.title}</h3>
-                <p className="text-sm leading-relaxed text-gray-400">
+                <p className="text-sm leading-relaxed text-muted">
                   {value.description}
                 </p>
               </div>
@@ -124,7 +124,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-7xl px-6">
           <div className="mb-12 text-center">
             <h2 className="text-3xl font-black md:text-4xl">Built With</h2>
-            <p className="mt-4 text-gray-400">
+            <p className="mt-4 text-muted">
               A modern, production-ready stack chosen for speed, security, and
               scalability.
             </p>
@@ -139,7 +139,7 @@ export default function AboutPage() {
                 <div className="h-2 w-2 rounded-full bg-red-500" />
                 <div>
                   <p className="font-semibold">{tech.name}</p>
-                  <p className="text-sm text-gray-500">{tech.role}</p>
+                  <p className="text-sm text-muted">{tech.role}</p>
                 </div>
               </div>
             ))}
@@ -151,7 +151,7 @@ export default function AboutPage() {
       <section className="relative border-t border-white/5 py-20">
         <div className="mx-auto max-w-3xl px-6 text-center">
           <h2 className="text-3xl font-black md:text-4xl">What&apos;s Next</h2>
-          <p className="mt-4 text-gray-400">
+          <p className="mt-4 text-muted">
             We&apos;re actively building out the core experience. Here&apos;s
             what&apos;s on the horizon:
           </p>
@@ -165,7 +165,7 @@ export default function AboutPage() {
             ].map((item) => (
               <li
                 key={item}
-                className="flex items-center gap-3 rounded-xl border border-white/5 bg-white/[0.02] px-5 py-3 text-sm text-gray-300"
+                className="flex items-center gap-3 rounded-xl border border-white/5 bg-white/[0.02] px-5 py-3 text-sm text-foreground"
               >
                 <span className="text-red-400">→</span>
                 {item}
@@ -179,7 +179,7 @@ export default function AboutPage() {
       <section className="relative border-t border-white/5 pb-24 pt-16">
         <div className="mx-auto max-w-xl px-6 text-center">
           <h2 className="text-2xl font-black">Ready to start your log?</h2>
-          <p className="mt-3 text-gray-400">
+          <p className="mt-3 text-muted">
             Create a free account and begin tracking today.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
@@ -190,7 +190,7 @@ export default function AboutPage() {
             </SignUpButton>
             <Link
               href="/"
-              className="rounded-2xl border border-white/10 px-8 py-3 font-semibold text-gray-300 transition hover:border-red-500/40 hover:text-white"
+              className="rounded-2xl border border-white/10 px-8 py-3 font-semibold text-foreground transition hover:border-red-500/40 hover:text-foreground"
             >
               Back to Home
             </Link>

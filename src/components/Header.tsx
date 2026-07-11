@@ -26,7 +26,7 @@ const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-red-900/30 bg-black/70 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-red-900/30 bg-nav backdrop-blur-xl">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-red-500 to-transparent" />
       <div className="absolute left-1/2 top-0 h-40 w-72 -translate-x-1/2 rounded-full bg-red-600/20 blur-[120px]" />
 
@@ -40,7 +40,7 @@ const Header = () => {
             <h1 className="text-xl font-black tracking-wider text-white">
               Imdb<span className="text-red-500">Tracker</span>
             </h1>
-            <p className="text-xs text-gray-500">Track • Analyze • Discover</p>
+            <p className="text-xs text-muted">Track • Analyze • Discover</p>
           </div>
         </Link>
 
@@ -52,7 +52,7 @@ const Header = () => {
                 key={item.href}
                 href={item.href}
                 className={`group relative text-sm font-medium transition duration-300 ${
-                  isActive ? "text-red-400" : "text-gray-300 hover:text-red-400"
+                  isActive ? "text-red-400" : "text-foreground hover:text-red-400"
                 }`}
               >
                 {item.label}
@@ -94,7 +94,7 @@ const Header = () => {
           <SignedIn>
             <Link
               href="/favorites"
-              className="hidden text-sm font-semibold text-gray-300 transition hover:text-red-400 md:inline"
+              className="hidden text-sm font-semibold text-foreground transition hover:text-red-400 md:inline"
             >
               Favorites
             </Link>
@@ -112,7 +112,7 @@ const Header = () => {
       </div>
 
       {mobileOpen && (
-        <div className="border-t border-red-900/30 bg-black/95 px-6 pb-6 pt-4 md:hidden">
+        <div className="border-t border-red-900/30 bg-nav px-6 pb-6 pt-4 md:hidden">
           <nav className="flex flex-col gap-4">
             {navItems.map((item) => {
               const isActive = pathname === item.href;
@@ -122,7 +122,7 @@ const Header = () => {
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
                   className={`text-sm font-medium transition ${
-                    isActive ? "text-red-400" : "text-gray-300 hover:text-red-400"
+                    isActive ? "text-red-400" : "text-foreground hover:text-red-400"
                   }`}
                 >
                   {item.label}
@@ -134,7 +134,7 @@ const Header = () => {
               <Link
                 href="/favorites"
                 onClick={() => setMobileOpen(false)}
-                className="text-sm font-medium text-gray-300 transition hover:text-red-400"
+                className="text-sm font-medium text-foreground transition hover:text-red-400"
               >
                 Favorites
               </Link>

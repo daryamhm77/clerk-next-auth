@@ -34,13 +34,13 @@ export default function SearchFilters({ searchTerm }: SearchFiltersProps) {
         onKeyDown={(e) => {
           if (e.key === 'Enter') updateFilter('y', e.currentTarget.value);
         }}
-        className="h-10 w-24 rounded-lg border border-neutral-700 bg-neutral-900 px-3 text-sm text-white outline-none transition focus:border-amber-500"
+        className="h-10 w-24 rounded-lg border border-card-border bg-input px-3 text-sm text-foreground outline-none transition focus:border-amber-500"
       />
 
       <select
         value={type}
         onChange={(e) => updateFilter('type', e.target.value)}
-        className="h-10 rounded-lg border border-neutral-700 bg-neutral-900 px-3 text-sm text-white outline-none transition focus:border-amber-500"
+        className="h-10 rounded-lg border border-card-border bg-input px-3 text-sm text-foreground outline-none transition focus:border-amber-500"
       >
         <option value="">All Types</option>
         <option value="movie">Movies</option>

@@ -58,7 +58,7 @@ export default function Favorites() {
   if (!isSignedIn) {
     return (
       <div className="pt-10 text-center">
-        <h1 className="text-xl text-gray-400">
+        <h1 className="text-xl text-muted">
           Please sign in to view your list
         </h1>
       </div>
@@ -67,7 +67,7 @@ export default function Favorites() {
 
   return (
     <div>
-      <div className="mb-6 flex gap-4 border-b border-neutral-800">
+      <div className="mb-6 flex gap-4 border-b border-card-border">
         {tabs.map((tab) => (
           <button
             key={tab.key}
@@ -75,7 +75,7 @@ export default function Favorites() {
             className={`pb-2 text-sm font-semibold transition ${
               activeTab === tab.key
                 ? 'border-b-2 border-red-500 text-red-400'
-                : 'text-gray-500 hover:text-gray-300'
+                : 'text-muted hover:text-foreground'
             }`}
           >
             {tab.label}
@@ -84,7 +84,7 @@ export default function Favorites() {
       </div>
 
       {!favs || favs.length === 0 ? (
-        <h1 className="pt-10 text-center text-2xl font-semibold text-gray-400">
+        <h1 className="pt-10 text-center text-2xl font-semibold text-muted">
           Nothing here yet
         </h1>
       ) : (

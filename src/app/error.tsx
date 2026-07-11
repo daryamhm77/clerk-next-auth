@@ -27,7 +27,7 @@ export default function Error({ error, reset }: ErrorProps) {
           Oops! Something went wrong.
         </h1>
 
-        <p className="mb-8 text-gray-400">
+        <p className="mb-8 text-muted">
           We couldn't load this page. It might be a temporary issue with the
           server or your connection.
         </p>
@@ -43,7 +43,7 @@ export default function Error({ error, reset }: ErrorProps) {
 
           <Link
             href="/"
-            className="flex items-center justify-center gap-2 rounded-lg border border-gray-700 px-6 py-3 text-white transition hover:border-amber-500 hover:text-amber-500"
+            className="flex items-center justify-center gap-2 rounded-lg border border-card-border px-6 py-3 text-foreground transition hover:border-amber-500 hover:text-amber-500"
           >
             <Home size={18} />
             Back Home
@@ -51,7 +51,7 @@ export default function Error({ error, reset }: ErrorProps) {
         </div>
 
         {process.env.NODE_ENV === 'development' && (
-          <pre className="mt-8 overflow-auto rounded-lg bg-neutral-900 p-4 text-left text-xs text-red-400">
+          <pre className="mt-8 overflow-auto rounded-lg bg-card p-4 text-left text-xs text-red-400">
             {error.message}
           </pre>
         )}

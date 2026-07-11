@@ -1,12 +1,5 @@
 import Card from './Card';
-
-interface Movie {
-  imdbID: string;
-  Title: string;
-  Year: string;
-  Type: string;
-  Poster: string;
-}
+import type { Movie } from '@/lib/types';
 
 export default function Results({
   results,

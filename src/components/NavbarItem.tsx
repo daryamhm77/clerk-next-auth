@@ -21,7 +21,7 @@ export default function NavbarItem({
     <Link
       href={`/top/${param}`}
       className={`relative px-1 py-2 text-sm font-semibold transition-all duration-300 hover:text-amber-500 ${
-        active ? 'text-amber-500' : 'text-gray-300'
+        active ? 'text-amber-500' : 'text-foreground'
       }`}
     >
       {title}
