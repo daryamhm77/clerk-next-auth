@@ -1,7 +1,6 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import { MdSearch } from 'react-icons/md';
 
 interface SearchFiltersProps {
   searchTerm: string;

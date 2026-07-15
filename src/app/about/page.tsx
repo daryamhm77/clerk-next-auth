@@ -38,7 +38,7 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="relative overflow-hidden bg-[#050505] text-white">
+    <div className="relative overflow-hidden bg-background text-foreground">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/4 top-0 h-72 w-72 rounded-full bg-red-600/10 blur-[100px]" />
         <div className="absolute bottom-1/4 right-1/4 h-64 w-64 rounded-full bg-amber-500/5 blur-[80px]" />
@@ -64,7 +64,7 @@ export default function AboutPage() {
       </section>
 
       {/* Mission */}
-      <section className="relative border-t border-white/5 py-20">
+      <section className="relative border-t border-card-border py-20">
         <div className="mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-2">
           <div>
             <h2 className="text-3xl font-black md:text-4xl">Our Mission</h2>
@@ -82,7 +82,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-zinc-900 to-black p-8">
+          <div className="rounded-3xl border border-card-border bg-gradient-to-br from-card to-background p-8">
             <div className="mb-6 text-6xl">🎬</div>
             <blockquote className="text-xl font-medium leading-relaxed text-foreground">
               &ldquo;The best movie tracker is the one you actually use. We
@@ -97,7 +97,7 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="relative border-t border-white/5 bg-black/40 py-20">
+      <section className="relative border-t border-card-border bg-card/40 py-20">
         <div className="mx-auto max-w-7xl px-6">
           <h2 className="mb-12 text-center text-3xl font-black md:text-4xl">
             What We Stand For
@@ -106,7 +106,7 @@ export default function AboutPage() {
             {values.map((value) => (
               <div
                 key={value.title}
-                className="rounded-2xl border border-white/5 bg-white/[0.02] p-8"
+                className="rounded-2xl border border-card-border bg-card p-8"
               >
                 <div className="mb-4 text-4xl">{value.icon}</div>
                 <h3 className="mb-3 text-xl font-bold">{value.title}</h3>
@@ -134,7 +134,7 @@ export default function AboutPage() {
             {techStack.map((tech) => (
               <div
                 key={tech.name}
-                className="flex items-center gap-4 rounded-xl border border-white/5 bg-white/[0.02] px-6 py-4"
+                className="flex items-center gap-4 rounded-xl border border-card-border bg-card px-6 py-4"
               >
                 <div className="h-2 w-2 rounded-full bg-red-500" />
                 <div>
@@ -148,7 +148,7 @@ export default function AboutPage() {
       </section>
 
       {/* Roadmap teaser */}
-      <section className="relative border-t border-white/5 py-20">
+      <section className="relative border-t border-card-border py-20">
         <div className="mx-auto max-w-3xl px-6 text-center">
           <h2 className="text-3xl font-black md:text-4xl">What&apos;s Next</h2>
           <p className="mt-4 text-muted">
@@ -165,7 +165,7 @@ export default function AboutPage() {
             ].map((item) => (
               <li
                 key={item}
-                className="flex items-center gap-3 rounded-xl border border-white/5 bg-white/[0.02] px-5 py-3 text-sm text-foreground"
+                className="flex items-center gap-3 rounded-xl border border-card-border bg-card px-5 py-3 text-sm text-foreground"
               >
                 <span className="text-red-400">→</span>
                 {item}
@@ -176,7 +176,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="relative border-t border-white/5 pb-24 pt-16">
+      <section className="relative border-t border-card-border pb-24 pt-16">
         <div className="mx-auto max-w-xl px-6 text-center">
           <h2 className="text-2xl font-black">Ready to start your log?</h2>
           <p className="mt-3 text-muted">
@@ -190,7 +190,7 @@ export default function AboutPage() {
             </SignUpButton>
             <Link
               href="/"
-              className="rounded-2xl border border-white/10 px-8 py-3 font-semibold text-foreground transition hover:border-red-500/40 hover:text-foreground"
+              className="rounded-2xl border border-card-border px-8 py-3 font-semibold text-foreground transition hover:border-red-500/40"
             >
               Back to Home
             </Link>

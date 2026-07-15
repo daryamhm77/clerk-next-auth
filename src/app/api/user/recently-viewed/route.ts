@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { currentUser } from "@clerk/nextjs/server";
 import User from "@/lib/models/user.model";
-import { dbConnect } from "@/lib/mongodb/db";
+import { getDbUser } from "@/lib/actions/user";
 
 export async function POST(req: NextRequest) {
   const user = await currentUser();
@@ -10,14 +10,14 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    await dbConnect();
+    const dbUser = await getDbUser(user);
     const { movieId, title, image, year } = await req.json();
 
-    await User.findByIdAndUpdate(user.publicMetadata.userMongoId, {
+    await User.findByIdAndUpdate(dbUser._id, {
       $pull: { recentlyViewed: { movieId } },
     });
 
-    await User.findByIdAndUpdate(user.publicMetadata.userMongoId, {
+    await User.findByIdAndUpdate(dbUser._id, {
       $push: {
         recentlyViewed: {
           $each: [{ movieId, title, image, year, viewedAt: new Date() }],

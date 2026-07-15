@@ -22,7 +22,7 @@ export default function Card({ result }: { result: Movie }) {
         </div>
 
         <div className="space-y-2 p-4">
-          <h2 className="truncate text-lg font-semibold text-white">
+          <h2 className="truncate text-lg font-semibold text-foreground">
             {result.Title}
           </h2>
 

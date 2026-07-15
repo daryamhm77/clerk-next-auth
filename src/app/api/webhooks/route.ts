@@ -2,7 +2,6 @@ import { verifyWebhook } from "@clerk/nextjs/webhooks";
 import { NextRequest } from "next/server";
 import { clerkClient } from "@clerk/nextjs/server";
 import { createOrUpdateUser, deleteUser } from "@/lib/actions/user";
-import User from "@/lib/models/user.model";
 import { dbConnect } from "@/lib/mongodb/db";
 
 export async function POST(req: NextRequest) {

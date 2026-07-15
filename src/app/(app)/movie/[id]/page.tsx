@@ -6,6 +6,11 @@ import AddToFav from '@/components/AddToFav';
 import RecordView from '@/components/RecordView';
 import { getMovieById } from '@/lib/api';
 
+// Movie metadata is effectively immutable: cache each visited page (ISR)
+// and refresh hourly. User-specific bits (AddToFav, RecordView) are client
+// components that fetch after hydration, so they stay per-user.
+export const revalidate = 3600;
+
 interface MovieDetailPageProps {
   params: Promise<{
     id: string;
@@ -87,7 +92,7 @@ export default async function MovieDetailPage({
 
         <div className="space-y-6">
           <div>
-            <h1 className="text-3xl font-bold text-white">
+            <h1 className="text-3xl font-bold text-foreground">
               {movie.Title}{' '}
               <span className="text-xl text-muted">({movie.Year})</span>
             </h1>
@@ -114,7 +119,7 @@ export default async function MovieDetailPage({
             {movie.imdbRating && movie.imdbRating !== 'N/A' && (
               <div className="flex items-center gap-2 text-amber-500">
                 <MdStar size={20} />
-                <span className="font-semibold text-white">
+                <span className="font-semibold text-foreground">
                   {movie.imdbRating}/10
                 </span>
               </div>
@@ -146,21 +151,21 @@ export default async function MovieDetailPage({
 
           {movie.Plot && movie.Plot !== 'N/A' && (
             <div>
-              <h2 className="mb-2 text-lg font-semibold text-white">Plot</h2>
+              <h2 className="mb-2 text-lg font-semibold text-foreground">Plot</h2>
               <p className="leading-relaxed text-foreground">{movie.Plot}</p>
             </div>
           )}
 
           {movie.Actors && movie.Actors !== 'N/A' && (
             <div>
-              <h2 className="mb-2 text-lg font-semibold text-white">Cast</h2>
+              <h2 className="mb-2 text-lg font-semibold text-foreground">Cast</h2>
               <p className="text-foreground">{movie.Actors}</p>
             </div>
           )}
 
           {movie.Director && movie.Director !== 'N/A' && (
             <div>
-              <h2 className="mb-2 text-lg font-semibold text-white">
+              <h2 className="mb-2 text-lg font-semibold text-foreground">
                 Director
               </h2>
               <p className="text-foreground">{movie.Director}</p>
@@ -169,7 +174,7 @@ export default async function MovieDetailPage({
 
           {movie.Ratings && movie.Ratings.length > 0 && (
             <div>
-              <h2 className="mb-2 text-lg font-semibold text-white">Ratings</h2>
+              <h2 className="mb-2 text-lg font-semibold text-foreground">Ratings</h2>
               <div className="space-y-1">
                 {movie.Ratings.map(
                   (rating: { Source: string; Value: string }, i: number) => (

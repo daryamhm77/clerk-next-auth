@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { MdMenu, MdClose } from "react-icons/md";
@@ -15,10 +16,10 @@ import ThemeSwitch from "./ThemeSwitch";
 
 const navItems = [
   { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Dashboard", href: "/dashboard" },
   { label: "Trending", href: "/top/trending" },
   { label: "Top Rated", href: "/top/top_rated" },
+  { label: "About", href: "/about" },
+  { label: "Dashboard", href: "/dashboard" },
 ];
 
 const Header = () => {
@@ -32,12 +33,17 @@ const Header = () => {
 
       <div className="relative mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
         <Link href="/" className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-red-500/30 bg-gradient-to-br from-red-600 to-red-900 shadow-[0_0_30px_rgba(239,68,68,0.35)]">
-            🎞️
-          </div>
+          <Image
+            src="/logo.png"
+            alt="IMDb Tracker logo"
+            width={48}
+            height={48}
+            className="h-12 w-12 drop-shadow-[0_0_20px_rgba(239,68,68,0.35)]"
+            priority
+          />
 
           <div>
-            <h1 className="text-xl font-black tracking-wider text-white">
+            <h1 className="text-xl font-black tracking-wider text-foreground">
               Imdb<span className="text-red-500">Tracker</span>
             </h1>
             <p className="text-xs text-muted">Track • Analyze • Discover</p>
@@ -70,7 +76,7 @@ const Header = () => {
           <ThemeSwitch />
 
           <button
-            className="text-white md:hidden"
+            className="text-foreground md:hidden"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >

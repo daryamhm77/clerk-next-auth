@@ -6,6 +6,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import Header from "@/components/Header";
 import ThemeProvider from "@/components/ThemeProvider";
 import ToastProvider from "@/components/Toast";
+import SearchBox from "@/components/SearchBox";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,6 +37,7 @@ export default function RootLayout({
           <ThemeProvider>
             <ToastProvider>
               <Header />
+              <SearchBox />
               <main>{children}</main>
             </ToastProvider>
           </ThemeProvider>

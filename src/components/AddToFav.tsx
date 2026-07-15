@@ -53,21 +53,29 @@ export default function AddToFav({
   dateReleased,
   rating,
 }: AddToFavProps) {
-  const [currentList, setCurrentList] = useState<ListType | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const { isSignedIn, user, isLoaded } = useUser();
+  const [activeLists, setActiveLists] = useState<Set<ListType>>(new Set());
+  const [loadingList, setLoadingList] = useState<ListType | null>(null);
+  const { isSignedIn, isLoaded } = useUser();
   const router = useRouter();
   const { showToast } = useToast();
 
   useEffect(() => {
-    if (isLoaded && isSignedIn && user) {
-      const favs = user.publicMetadata?.favs as
-        | { movieId: string; list: string }[]
-        | undefined;
-      const found = favs?.find((f) => f.movieId === movieId);
-      setCurrentList((found?.list as ListType) ?? null);
-    }
-  }, [movieId, isLoaded, isSignedIn, user]);
+    if (!isLoaded || !isSignedIn) return;
+
+    let cancelled = false;
+    fetch(`/api/user/fav?movieId=${encodeURIComponent(movieId)}`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (!cancelled && data?.lists) {
+          setActiveLists(new Set(data.lists as ListType[]));
+        }
+      })
+      .catch(() => {});
+
+    return () => {
+      cancelled = true;
+    };
+  }, [movieId, isLoaded, isSignedIn]);
 
   const handleClick = async (list: ListType) => {
     if (!isSignedIn) {
@@ -75,7 +83,7 @@ export default function AddToFav({
       return;
     }
 
-    setIsLoading(true);
+    setLoadingList(list);
     try {
       const res = await fetch('/api/user/fav', {
         method: 'PUT',
@@ -92,39 +100,47 @@ export default function AddToFav({
       });
 
       if (res.ok) {
-        const newList = currentList === list ? null : list;
-        setCurrentList(newList);
-        if (newList) {
-          showToast(`Added "${title}" to ${listConfig[newList].label}`);
+        const wasActive = activeLists.has(list);
+        setActiveLists((prev) => {
+          const next = new Set(prev);
+          if (wasActive) {
+            next.delete(list);
+          } else {
+            next.add(list);
+          }
+          return next;
+        });
+        if (wasActive) {
+          showToast(`Removed "${title}" from ${listConfig[list].label}`);
         } else {
-          showToast(`Removed "${title}"`);
+          showToast(`Added "${title}" to ${listConfig[list].label}`);
         }
       }
     } catch (error) {
       console.error('Error:', error);
     } finally {
-      setIsLoading(false);
+      setLoadingList(null);
     }
   };
 
   return (
     <div className="flex flex-wrap gap-2">
       {(Object.keys(listConfig) as ListType[]).map((list) => {
-        const active = currentList === list;
+        const active = activeLists.has(list);
         const cfg = listConfig[list];
         return (
           <button
             key={list}
             onClick={() => handleClick(list)}
-            disabled={isLoading}
+            disabled={loadingList !== null}
             className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-semibold transition ${
               active
                 ? 'bg-red-600 text-white hover:bg-red-700'
                 : 'border border-card-border text-foreground hover:border-red-500 hover:text-red-500'
             }`}
           >
-            {isLoading ? (
-              <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+            {loadingList === list ? (
+              <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
             ) : active ? (
               cfg.iconActive
             ) : (

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useState, useTransition, useEffect, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Search, Loader2 } from 'lucide-react';
 
@@ -8,18 +8,28 @@ export default function SearchBox() {
   const [search, setSearch] = useState('');
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+  const lastNavigatedTerm = useRef('');
+
+  const navigate = useCallback(
+    (term: string) => {
+      if (!term || term === lastNavigatedTerm.current) return;
+      lastNavigatedTerm.current = term;
+      startTransition(() => {
+        router.push(`/search/${encodeURIComponent(term)}`);
+      });
+    },
+    [router, startTransition]
+  );
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const term = search.trim();
-
-    if (!term) return;
-
-    startTransition(() => {
-      router.push(`/search/${encodeURIComponent(term)}`);
-    });
+    navigate(search.trim());
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => navigate(search.trim()), 500);
+    return () => clearTimeout(timer);
+  }, [search, navigate]);
 
   return (
     <form

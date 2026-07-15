@@ -6,6 +6,23 @@ export interface Movie {
   Poster: string;
 }
 
+export interface UserFavItem {
+  movieId: string;
+  title: string;
+  image: string;
+  description: string;
+  dateReleased: string;
+  rating: string;
+  list: string;
+}
+
+export interface RecentlyViewedItem {
+  movieId: string;
+  title: string;
+  image: string;
+  year: string;
+}
+
 export interface MovieDetail extends Movie {
   Rated: string;
   Released: string;

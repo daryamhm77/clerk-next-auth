@@ -23,12 +23,12 @@ export default function Error({ error, reset }: ErrorProps) {
           </div>
         </div>
 
-        <h1 className="mb-3 text-4xl font-bold text-white">
+        <h1 className="mb-3 text-4xl font-bold text-foreground">
           Oops! Something went wrong.
         </h1>
 
         <p className="mb-8 text-muted">
-          We couldn't load this page. It might be a temporary issue with the
+          We couldn&apos;t load this page. It might be a temporary issue with the
           server or your connection.
         </p>
 

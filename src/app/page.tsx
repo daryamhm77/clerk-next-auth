@@ -3,6 +3,9 @@ import Link from "next/link";
 import { SignedIn, SignedOut, SignUpButton } from "@clerk/nextjs";
 import HomeMovieGrid from "@/components/HomeMovieGrid";
 import Loader from "@/components/Loader";
+import UserWatchlist from "@/components/UserWatchlist";
+import UserStats from "@/components/UserStats";
+import Recommendations from "@/components/Recommendations";
 
 const features = [
   {
@@ -31,16 +34,9 @@ const features = [
   },
 ];
 
-const spotlightFilms = [
-  { title: "The Shawshank Redemption", year: 1994, rating: 9.3, genre: "Drama" },
-  { title: "Inception", year: 2010, rating: 8.8, genre: "Sci-Fi" },
-  { title: "Parasite", year: 2019, rating: 8.5, genre: "Thriller" },
-  { title: "Spirited Away", year: 2001, rating: 8.6, genre: "Animation" },
-];
-
 export default function Home() {
   return (
-    <div className="relative overflow-hidden bg-[#050505] text-white">
+    <div className="relative overflow-hidden bg-background text-foreground">
       {/* Ambient background */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -left-32 top-20 h-96 w-96 rounded-full bg-red-600/10 blur-[120px]" />
@@ -51,7 +47,7 @@ export default function Home() {
           className="absolute inset-0 opacity-[0.03]"
           style={{
             backgroundImage:
-              "repeating-linear-gradient(90deg, #fff 0px, #fff 8px, transparent 8px, transparent 24px)",
+              "repeating-linear-gradient(90deg, currentColor 0px, currentColor 8px, transparent 8px, transparent 24px)",
           }}
         />
       </div>
@@ -60,7 +56,7 @@ export default function Home() {
       <section className="relative mx-auto max-w-7xl px-6 pb-24 pt-16 md:pt-24">
         <div className="grid items-center gap-16 lg:grid-cols-2">
           <div>
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-950/40 px-4 py-1.5 text-sm text-red-300">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-100 px-4 py-1.5 text-sm text-red-600 dark:bg-red-950/40 dark:text-red-300">
               <span className="h-2 w-2 animate-pulse rounded-full bg-red-500" />
               Your cinema journey starts here
             </div>
@@ -88,7 +84,7 @@ export default function Home() {
                 </SignUpButton>
                 <Link
                   href="/about"
-                  className="rounded-2xl border border-white/10 px-8 py-4 text-base font-semibold text-foreground transition hover:border-red-500/40 hover:text-foreground"
+                  className="rounded-2xl border border-card-border px-8 py-4 text-base font-semibold text-foreground transition hover:border-red-500/40"
                 >
                   Learn More
                 </Link>
@@ -105,17 +101,17 @@ export default function Home() {
 
             <div className="mt-12 flex items-center gap-8 text-sm text-muted">
               <div>
-                <p className="text-2xl font-bold text-white">10k+</p>
+                <p className="text-2xl font-bold text-foreground">10k+</p>
                 <p>Films tracked</p>
               </div>
-              <div className="h-8 w-px bg-white/10" />
+              <div className="h-8 w-px bg-card-border" />
               <div>
-                <p className="text-2xl font-bold text-white">2.4k</p>
+                <p className="text-2xl font-bold text-foreground">2.4k</p>
                 <p>Active cinephiles</p>
               </div>
-              <div className="h-8 w-px bg-white/10" />
+              <div className="h-8 w-px bg-card-border" />
               <div>
-                <p className="text-2xl font-bold text-white">4.9★</p>
+                <p className="text-2xl font-bold text-foreground">4.9★</p>
                 <p>User rating</p>
               </div>
             </div>
@@ -124,7 +120,7 @@ export default function Home() {
           {/* Hero visual — mock dashboard card */}
           <div className="relative">
             <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-red-600/20 to-transparent blur-2xl" />
-            <div className="relative rounded-3xl border border-white/10 bg-gradient-to-br from-zinc-900 to-black p-6 shadow-2xl">
+            <div className="relative rounded-3xl border border-card-border bg-gradient-to-br from-card to-background p-6 shadow-2xl">
               <div className="mb-4 flex items-center justify-between">
                 <p className="text-sm font-semibold text-muted">
                   Your Watchlist
@@ -135,53 +131,17 @@ export default function Home() {
               </div>
 
               <div className="space-y-3">
-                {spotlightFilms.map((film, i) => (
-                  <div
-                    key={film.title}
-                    className="flex items-center gap-4 rounded-2xl border border-white/5 bg-white/[0.03] p-4 transition hover:border-red-500/20"
-                    style={{ animationDelay: `${i * 100}ms` }}
-                  >
-                    <div className="flex h-14 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-red-900 to-red-950 text-lg">
-                      🎞️
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate font-semibold">{film.title}</p>
-                        <p className="text-xs text-muted">
-                        {film.year} · {film.genre}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <p className="font-bold text-amber-400">★ {film.rating}</p>
-                      <p className="text-xs text-green-400">Watched</p>
-                    </div>
-                  </div>
-                ))}
+                <UserWatchlist />
               </div>
 
-              <div className="mt-6 grid grid-cols-3 gap-3">
-                {[
-                  { label: "Watched", value: "47" },
-                  { label: "Avg Rating", value: "7.8" },
-                  { label: "Top Genre", value: "Drama" },
-                ].map((stat) => (
-                  <div
-                    key={stat.label}
-                    className="rounded-xl border border-white/5 bg-white/[0.02] p-3 text-center"
-                  >
-                    <p className="text-lg font-bold text-red-400">
-                      {stat.value}
-                    </p>
-                      <p className="text-xs text-muted">{stat.label}</p>
-                  </div>
-                ))}
-              </div>
+              <UserStats />
             </div>
           </div>
         </div>
       </section>
 
       {/* Trending */}
-      <section className="relative border-t border-white/5 bg-black/40 py-16">
+      <section className="relative border-t border-card-border bg-card/40 py-16">
         <Suspense
           fallback={
             <div className="mx-auto max-w-7xl px-6">
@@ -193,8 +153,13 @@ export default function Home() {
         </Suspense>
       </section>
 
+      {/* Recommendations */}
+      <SignedIn>
+        <Recommendations />
+      </SignedIn>
+
       {/* Features */}
-      <section className="relative border-t border-white/5 bg-black/40 py-24">
+      <section className="relative border-t border-card-border bg-card/40 py-24">
         <div className="mx-auto max-w-7xl px-6">
           <div className="mb-16 text-center">
             <h2 className="text-3xl font-black md:text-5xl">
@@ -211,7 +176,7 @@ export default function Home() {
             {features.map((feature) => (
               <div
                 key={feature.title}
-                className="group rounded-2xl border border-white/5 bg-white/[0.02] p-6 transition hover:border-red-500/30 hover:bg-red-950/10"
+                className="group rounded-2xl border border-card-border bg-card p-6 transition hover:border-red-500/30 hover:bg-red-50 dark:hover:bg-red-950/10"
               >
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-red-600/10 text-2xl transition group-hover:scale-110">
                   {feature.icon}
@@ -253,7 +218,7 @@ export default function Home() {
               },
             ].map((item) => (
               <div key={item.step} className="relative text-center">
-                <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-red-500/30 bg-red-950/30 text-2xl font-black text-red-500">
+                <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-red-500/30 bg-red-100 text-2xl font-black text-red-600 dark:bg-red-950/30 dark:text-red-500">
                   {item.step}
                 </div>
                 <h3 className="mb-2 text-xl font-bold">{item.title}</h3>
@@ -265,9 +230,9 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      <section className="relative border-t border-white/5 py-24">
+      <section className="relative border-t border-card-border py-24">
         <div className="mx-auto max-w-3xl px-6 text-center">
-          <div className="rounded-3xl border border-red-500/20 bg-gradient-to-br from-red-950/40 to-black p-12">
+          <div className="rounded-3xl border border-red-500/20 bg-gradient-to-br from-red-100 to-background p-12 dark:from-red-950/40 dark:to-black">
             <h2 className="text-3xl font-black md:text-4xl">
               Ready to roll the credits on forgetfulness?
             </h2>

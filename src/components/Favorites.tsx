@@ -1,19 +1,8 @@
 'use client';
 
+import { useState } from 'react';
 import Results from '@/components/Results';
-import { useEffect, useState } from 'react';
-import { useUser } from '@clerk/nextjs';
-import Loader from './Loader';
-
-interface FavItem {
-  movieId: string;
-  title: string;
-  image: string;
-  description: string;
-  dateReleased: string;
-  rating: string;
-  list: string;
-}
+import type { UserFavItem } from '@/lib/types';
 
 const tabs = [
   { key: 'favorite', label: 'Favorites' },
@@ -21,49 +10,10 @@ const tabs = [
   { key: 'watched', label: 'Watched' },
 ];
 
-export default function Favorites() {
-  const [favs, setFavs] = useState<FavItem[] | null>(null);
-  const [loading, setLoading] = useState(true);
+export default function Favorites({ favs }: { favs: UserFavItem[] }) {
   const [activeTab, setActiveTab] = useState('favorite');
-  const { isSignedIn, isLoaded } = useUser();
 
-  useEffect(() => {
-    if (!isLoaded) return;
-
-    if (!isSignedIn) {
-      setLoading(false);
-      return;
-    }
-
-    const fetchFavs = async () => {
-      try {
-        const res = await fetch(`/api/user/fav?list=${activeTab}`);
-        if (res.ok) {
-          const data = await res.json();
-          setFavs(data.favs ?? []);
-        }
-      } catch (error) {
-        console.error('Error:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    setLoading(true);
-    fetchFavs();
-  }, [isLoaded, isSignedIn, activeTab]);
-
-  if (!isLoaded || loading) return <Loader message="Loading..." />;
-
-  if (!isSignedIn) {
-    return (
-      <div className="pt-10 text-center">
-        <h1 className="text-xl text-muted">
-          Please sign in to view your list
-        </h1>
-      </div>
-    );
-  }
+  const visible = favs.filter((fav) => fav.list === activeTab);
 
   return (
     <div>
@@ -83,13 +33,13 @@ export default function Favorites() {
         ))}
       </div>
 
-      {!favs || favs.length === 0 ? (
+      {visible.length === 0 ? (
         <h1 className="pt-10 text-center text-2xl font-semibold text-muted">
           Nothing here yet
         </h1>
       ) : (
         <Results
-          results={favs.map((fav) => ({
+          results={visible.map((fav) => ({
             imdbID: fav.movieId,
             Title: fav.title,
             Year: fav.dateReleased,

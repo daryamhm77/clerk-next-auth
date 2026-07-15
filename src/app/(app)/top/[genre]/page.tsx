@@ -2,6 +2,13 @@ import type { Metadata } from 'next';
 import Results from '@/components/Results';
 import { getTrending, getTopRated } from '@/lib/api';
 
+// Curated lists change rarely: prerender both pages, refresh hourly.
+export const revalidate = 3600;
+
+export function generateStaticParams() {
+  return [{ genre: 'trending' }, { genre: 'top_rated' }];
+}
+
 interface GenrePageProps {
   params: Promise<{
     genre: string;
